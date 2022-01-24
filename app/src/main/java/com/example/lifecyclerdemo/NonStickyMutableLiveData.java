@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class NonStickyMutableLiveData<T> extends MutableLiveData {
     private boolean stickyFlag = false;//是否粘性，默认为非粘性
@@ -38,7 +39,16 @@ public class NonStickyMutableLiveData<T> extends MutableLiveData {
             get.setAccessible(true);
             //执行方法get,拿到ObserverWrapper对象.
             //注意这里执行get方法的变成了对象mObserversObject，而不是class对象
-            get.invoke(mObserversObject,observer);
+            //方法执行的返回值结果是可以直接使用的Java对象
+            Object invokeEntry = get.invoke(mObserversObject, observer);
+            Object observerWraper = null;
+            if(invokeEntry!=null && invokeEntry instanceof Map.Entry){
+                observerWraper = ((Map.Entry) invokeEntry).getValue();
+            }
+            if(observerWraper == null){
+                throw new NullPointerException("observerWraper is null!");
+            }
+
 
 
         } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
