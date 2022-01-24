@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LifecyclerDemo</string>
+    <string name="tongzhi">通知</string>
+    <string name="go_to_main2">go to Main2</string>
+</resources>
