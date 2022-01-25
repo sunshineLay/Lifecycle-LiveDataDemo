@@ -19,7 +19,6 @@ public class NonStickyMutableLiveData<T> extends MutableLiveData {
         if(!stickyFlag){
             hook(observer);
         }
-
     }
     // 利用反射，改变mLastVersion的值。
     // 使得observer.mLastVersion >= mVersion成立。
@@ -48,7 +47,16 @@ public class NonStickyMutableLiveData<T> extends MutableLiveData {
             if(observerWraper == null){
                 throw new NullPointerException("observerWraper is null!");
             }
-
+            //拿到mLastVersion
+            Class<?> superclass = observerWraper.getClass().getSuperclass();
+            Field mLastVersion = superclass.getDeclaredField("mLastVersion");
+            mLastVersion.setAccessible(true);
+            //拿到mVersion
+            Field mVersion = liveDataClass.getDeclaredField("mVersion");
+            mVersion.setAccessible(true);
+            //拿到mVersion值,得到对象和值都是用get
+            Object mVersionValue = mVersion.get(this);
+            mLastVersion.set(observerWraper,mVersionValue);
 
 
         } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {

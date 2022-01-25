@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onChanged: "+s );
             }
         });
-//        stringLiveData.observeForever(new Observer<String>() {
-//            @Override
-//            public void onChanged(String s) {
-//
-//            }
-//        });
+        stringLiveData.observeForever(new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+
+            }
+        });
 
     }
 
