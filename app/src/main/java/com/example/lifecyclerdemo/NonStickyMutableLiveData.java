@@ -18,6 +18,7 @@ public class NonStickyMutableLiveData<T> extends MutableLiveData {
         super.observe(owner, observer);
         if(!stickyFlag){
             hook(observer);
+            stickyFlag = true;
         }
     }
     // 利用反射，改变mLastVersion的值。
@@ -34,7 +35,7 @@ public class NonStickyMutableLiveData<T> extends MutableLiveData {
             //通过对象得到class对象
             Class<?> mObserversClass = mObserversObject.getClass();
             //得到方法get
-            Method get = mObserversClass.getDeclaredMethod("get", Observer.class);
+            Method get = mObserversClass.getDeclaredMethod("get", Object.class);
             get.setAccessible(true);
             //执行方法get,拿到ObserverWrapper对象.
             //注意这里执行get方法的变成了对象mObserversObject，而不是class对象

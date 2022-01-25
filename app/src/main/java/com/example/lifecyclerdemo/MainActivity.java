@@ -22,19 +22,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        stringLiveData = new MutableLiveData<>();
-        stringLiveData.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Log.e(TAG, "onChanged: "+s );
-            }
-        });
-        stringLiveData.observeForever(new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-
-            }
-        });
+//        stringLiveData = new MutableLiveData<>();
+//        stringLiveData.observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String s) {
+//                Log.e(TAG, "onChanged: "+s );
+//            }
+//        });
+//        stringLiveData.observeForever(new Observer<String>() {
+//            @Override
+//            public void onChanged(String s) {
+//
+//            }
+//        });
 
     }
 
@@ -54,15 +54,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void mainthread() {
-        String s = "lay";
+//        String s = "lay";
+//        i++;
+//        stringLiveData.setValue(s+i);
         i++;
-        stringLiveData.setValue(s+i);
+        LiveDataBus.getInstance().with("msg",String.class,false)
+                .setValue("hahaha"+i);
     }
 
     public void postValue(View view) {
         //子线程
-        zithread();
-//        mainthread();
+//        zithread();
+        mainthread();
     }
 
     public void jumpMain2(View view) {
