@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 //        String s = "lay";
 //        i++;
 //        stringLiveData.setValue(s+i);
-        i++;
         LiveDataBus.getInstance().with("msg",String.class,false)
-                .setValue("hahaha"+i);
+                .setValue("1");
+
     }
 
     public void postValue(View view) {

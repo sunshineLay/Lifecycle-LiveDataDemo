@@ -27,7 +27,18 @@ public class Main2Activity extends AppCompatActivity {
                 .observe(this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
-                        Log.e(TAG, "onChanged: "+s);
+                        if(s.equals("1")){
+                            LiveDataBus.getInstance().with("msg",String.class,false)
+                                    .setValue("2");
+                        }
+                        Log.e(TAG, "onChanged: 01-"+s);
+                    }
+                });
+        LiveDataBus.getInstance().with("msg",String.class,false)
+                .observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        Log.e(TAG, "onChanged: 02-"+s);
                     }
                 });
     }

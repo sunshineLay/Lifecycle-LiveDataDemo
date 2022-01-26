@@ -3,11 +3,12 @@ package com.example.lifecyclerdemo;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
-public class Test implements LifecycleEventObserver {
+public class Test implements LifecycleEventObserver , DefaultLifecycleObserver {
 
     private static final String TAG;
 
